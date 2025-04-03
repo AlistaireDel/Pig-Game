@@ -1,6 +1,8 @@
 'use strict';
 
 // Selecting elements to manipulate:
+const player0El = document.querySelector('.player--0');
+const player1El = document.querySelector('.player--1');
 const score0El = document.getElementById('score--0');
 const currentScore0 = document.getElementById('current--0');
 const score1El = document.getElementById('score--1');
@@ -31,12 +33,16 @@ btnRoll.addEventListener('click', function () {
   if (dice !== 1) {
     // Add dice to current score:
     currentScore += dice;
-    currentScore0.textContent = currentScore; // CHANGE LATER
+    document.getElementById(`current--${activePlayer}`).textContent =
+      currentScore;
+
+    // currentScore0.textContent = currentScore; // CHANGE LATER
   } else {
     // Switch to next player:
-    currentScore0.textContent = 0;
-
-    currentScore += dice;
-    currentScore1.textContent = currentScore;
+    player0El.classList.toggle('player--active');
+    player1El.classList.toggle('player--active');
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
+    activePlayer = activePlayer === 0 ? 1 : 0; // Changes the player when the dice hits 1.
+    currentScore = 0;
   }
 });
